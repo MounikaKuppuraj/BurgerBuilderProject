@@ -2,10 +2,10 @@ import React from 'react';
 import BuildControl from './BuildControl/BuildControl';
 import classes from './BuildControls.module.css';
 const controls=[
-    {label:'Meat',type:'meat',price:5},
-    {label:'Bacon',type:'bacon',price:1.5},
-    {label:'Cheese',type:'cheese',price:3.5},
-    {label:'Salad',type:'salad',price:0.5},
+    {label:'Meat',type:'meat'},
+    {label:'Bacon',type:'bacon'},
+    {label:'Cheese',type:'cheese'},
+    {label:'Salad',type:'salad'},
 ]
 const buildControls = (props) => {
     return (
@@ -20,6 +20,9 @@ const buildControls = (props) => {
                     removeIngredient={props.removeIngredient}
                     disabled={props.disabled[control.type]}/>)
             }
+            <button className={classes.OrderButton} 
+            disabled={props.purchaseable}
+            onClick={props.purchasing}>ORDER NOW</button>
         </div>
     )
 }
