@@ -19,8 +19,8 @@ const withErrorHandler = (WrapperComponent,axios) => {
             <Auxillary>
                 {this.state.error ? 
                 <Modal show={this.state.error} purchaseCancel={this.errorcloseHandler}>
-                    {this.state.error ? this.state.error.message : null}
-                </Modal> : null}
+                    {this.state.error.message}
+                </Modal>: null}
             <WrapperComponent {...this.props}/>
             </Auxillary>
             );

@@ -19,7 +19,6 @@ class BurgerBuilder extends Component {
         purchaseable:false,
         purchasing:false,
         totalPrice:4,
-        loading:false,
         error:false
     }
     componentDidMount(){
@@ -66,28 +65,13 @@ class BurgerBuilder extends Component {
         this.setState({purchasing:false})
     }
     purchaseContinueHandler=()=>{
-        this.setState({loading:true})
-        const order={
-            ingredients:this.state.ingredients,
-            totalPrice:this.state.totalPrice,
-            customer:{
-                name:'Mounika',
-                address:{
-                    street:'TestStreet',
-                    zipcode:600119,
-                    country:'India'
-                },
-                email:'mounikakuppuraj@gmail.com'
-            },
-            delivery:'fastest'
+       const queryParams=[];
+        for (const i of Object.keys(this.state.ingredients)) {
+            queryParams.push(i+"="+this.state.ingredients[i])
         }
-        axios.post('/orders.json',order)
-        .then(response=>{
-            this.setState({loading:false,purchasing:false})
-        })
-        .catch(error=>{
-            this.setState({loading:false,purchasing:false})
-        })
+        queryParams.push("price="+this.state.totalPrice)
+        const queryString=queryParams.join('&');
+        this.props.history.push('/checkout?'+queryString);
     }
     render() {
         const disabledInfo={...this.state.ingredients}
@@ -101,9 +85,6 @@ class BurgerBuilder extends Component {
         }
         let orderSummary=null
         let burger=this.state.error ? <p style={style}>Can't load ingredients</p> : <Spinner/>
-        if(this.state.loading){
-            orderSummary=<Spinner/>
-        }
         if(this.state.ingredients){
             orderSummary= <OrderSummary  
             ingredients={this.state.ingredients} 
