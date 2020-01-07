@@ -4,7 +4,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
 class Modal extends Component {
     shouldComponentUpdate(nextProps,nextState){
-        return nextProps.show!==this.props.show
+        return nextProps.show!==this.props.show || nextProps.children!==this.props.children
     }  
     render(){
         let modalClasses=[classes.Modal,classes.Close];
